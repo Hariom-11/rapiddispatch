@@ -1,7 +1,12 @@
 
 import TicketCard from "./TicketCard";
 
-export default function TicketBoard({ tickets, loading, error }) {
+export default function TicketBoard({
+  tickets,
+  loading,
+  error,
+  newTicketIds = [],
+}) {
   return (
     <section className="ticket-board">
       <div className="board-heading">
@@ -10,7 +15,9 @@ export default function TicketBoard({ tickets, loading, error }) {
           <p>Current support requests requiring attention</p>
         </div>
 
-        <span className="ticket-count">{tickets.length} Tickets</span>
+        <span className="ticket-count">
+          {tickets.length} Tickets
+        </span>
       </div>
 
       {loading ? (
@@ -18,11 +25,17 @@ export default function TicketBoard({ tickets, loading, error }) {
       ) : error ? (
         <p className="board-message board-error">{error}</p>
       ) : tickets.length === 0 ? (
-        <p className="board-message">No active tickets available.</p>
+        <p className="board-message">
+          No active tickets available.
+        </p>
       ) : (
         <div className="ticket-grid">
           {tickets.map((ticket) => (
-            <TicketCard key={ticket.id} ticket={ticket} />
+            <TicketCard
+              key={ticket.id}
+              ticket={ticket}
+              isNew={newTicketIds.includes(ticket.id)}
+            />
           ))}
         </div>
       )}

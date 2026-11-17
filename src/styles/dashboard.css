@@ -209,3 +209,40 @@
 .board-error {
   color: #dc2626;
 }
+
+
+/* Real-time ticket entrance animation */
+
+
+@keyframes ticketSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ticket-card-new {
+  animation: ticketSlideIn 2s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket-card-new {
+    animation: none;
+  }
+}
+
+
+.ticket-card-new {
+  animation: ticketSlideIn 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket-card-new {
+    animation: none;
+  }
+}

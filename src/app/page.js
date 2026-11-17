@@ -15,6 +15,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isConnected, setIsConnected] = useState(false);
+  const [newTicketIds, setNewTicketIds] = useState([]);
 
   useEffect(() => {
     let active = true;
@@ -42,6 +43,11 @@ export default function Home() {
 
         return [newTicket, ...previousTickets];
       });
+
+      setNewTicketIds((previousIds) => [
+        ...previousIds,
+        newTicket.id,
+      ]);
     };
 
     socket.on("connect", handleConnect);
@@ -87,6 +93,7 @@ export default function Home() {
               (a, b) => b.id - a.id
             );
           });
+
           setError("");
         }
       } catch (err) {
@@ -116,7 +123,13 @@ export default function Home() {
   return (
     <main className="dashboard-container">
       <DashboardHeader isConnected={isConnected} />
-      <TicketBoard tickets={tickets} loading={loading} error={error} />
+
+      <TicketBoard
+        tickets={tickets}
+        loading={loading}
+        error={error}
+        newTicketIds={newTicketIds}
+      />
     </main>
   );
 }

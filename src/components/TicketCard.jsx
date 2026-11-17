@@ -1,16 +1,24 @@
 
-export default function TicketCard({ ticket }) {
+export default function TicketCard({ ticket, isNew = false }) {
   return (
-    <article className="ticket-card">
+    <article
+      className={`ticket-card ${isNew ? "ticket-card-new" : ""}`}
+    >
       <div className="ticket-card-top">
         <span className="ticket-id">#{ticket.id}</span>
-        <span className={`priority priority-${ticket.priority.toLowerCase()}`}>
+
+        <span
+          className={`priority priority-${ticket.priority.toLowerCase()}`}
+        >
           {ticket.priority}
         </span>
       </div>
 
       <h3>{ticket.title}</h3>
-      <p className="ticket-description">{ticket.description}</p>
+
+      <p className="ticket-description">
+        {ticket.description}
+      </p>
 
       <div className="ticket-card-footer">
         <span>{ticket.customer}</span>
