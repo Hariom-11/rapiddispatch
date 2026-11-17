@@ -1,5 +1,5 @@
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ isConnected }) {
   return (
     <header className="dashboard-header">
       <div>
@@ -11,8 +11,12 @@ export default function DashboardHeader() {
       </div>
 
       <div className="header-status">
-        <span className="status-indicator"></span>
-        <span>Dashboard Overview</span>
+        <span
+          className={`status-indicator ${
+            isConnected ? "status-online" : "status-offline"
+          }`}
+        ></span>
+        <span>{isConnected ? "Live Connected" : "Disconnected"}</span>
       </div>
     </header>
   );

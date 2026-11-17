@@ -187,3 +187,25 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+.status-online {
+  background: #22c55e;
+  box-shadow: 0 0 0 3px #dcfce7;
+}
+
+.status-offline {
+  background: #ef4444;
+  box-shadow: 0 0 0 3px #fee2e2;
+}
+
+.board-message {
+  padding: 48px 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.board-error {
+  color: #dc2626;
+}

@@ -37,6 +37,45 @@ app.get("/api/tickets", (req, res) => {
   });
 });
 
+app.post("/api/tickets", (req, res) => {
+  const { title, description, customer, priority } = req.body;
+
+  if (
+    typeof title !== "string" ||
+    !title.trim() ||
+    typeof description !== "string" ||
+    !description.trim() ||
+    typeof customer !== "string" ||
+    !customer.trim() ||
+    !["High", "Medium", "Low"].includes(priority)
+  ) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid ticket information",
+    });
+  }
+
+  const newTicket = {
+    id: tickets.length
+      ? Math.max(...tickets.map((ticket) => ticket.id)) + 1
+      : 1,
+    title: title.trim(),
+    description: description.trim(),
+    customer: customer.trim(),
+    priority,
+    status: "Open",
+  };
+
+  tickets.unshift(newTicket);
+
+  io.emit("ticket:created", newTicket);
+
+  return res.status(201).json({
+    success: true,
+    ticket: newTicket,
+  });
+});
+
 io.on("connection", (socket) => {
   console.log(`Agent connected: ${socket.id}`);
 
